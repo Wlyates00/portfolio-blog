@@ -44,7 +44,7 @@ const PostList = () => {
             >
                <div className="flex gap-4">
                   <img
-                     src="/exampleSoln.PNG"
+                     src="/photo.JPG"
                      alt="Profile"
                      className="w-10 h-10 rounded-full"
                   />
