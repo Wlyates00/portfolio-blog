@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+   --font-one: "Lato", "arial";
+   --color-fb-blue: #4267b2;
+}
