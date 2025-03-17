@@ -4,7 +4,7 @@ import { RiCloseLargeLine } from "react-icons/ri";
 const Sidebar = ({ isSidebarActive, setSidebarActive }) => {
    return (
       <div
-         className={`fixed top-0 left-0 h-full w-44 md:w-64 bg-white shadow-lg p-6 z-10 transform transition-transform duration-300 ease-in-out ${
+         className={`fixed top-0 left-0 h-full w-44 lg:w-64 bg-white shadow-lg p-6 z-10 transform transition-transform duration-300 ease-in-out ${
             isSidebarActive ? "translate-x-0" : "-translate-x-44"
          } sm:translate-x-0`}
       >

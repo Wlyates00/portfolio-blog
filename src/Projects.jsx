@@ -50,14 +50,14 @@ const projects = [
 const Projects = () => {
    return (
       <div className="w-full flex flex-col items-center mt-8 px-4 font-one">
-         <div className="flex flex-col gap-6 w-full max-w-[90%] sm:max-w-[70%] mb-6">
+         <div className="flex flex-col gap-6 w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] mb-6">
             {projects.map((project) => (
                <div
                   key={project.id}
                   className="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row"
                >
                   {/* Image Section */}
-                  <div className="h-full w-full sm:max-w-[200px] flex items-center justify-center">
+                  <div className="h-full w-full sm:max-w-[200px] flex items-center justify-center self-center">
                      <img
                         src={project.image}
                         alt={project.title}
