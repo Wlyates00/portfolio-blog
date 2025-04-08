@@ -54,6 +54,14 @@ const Sidebar = ({ isSidebarActive, setSidebarActive }) => {
                </li>
                <li>
                   <a
+                     href="/clone-chat"
+                     className="text-blue-500 hover:underline font-one"
+                  >
+                     AI Layton
+                  </a>
+               </li>
+               <li>
+                  <a
                      href="/contact"
                      className="text-blue-500 hover:underline font-one"
                   >

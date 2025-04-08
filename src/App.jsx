@@ -9,6 +9,7 @@ import { PostProvider } from "./contexts/PostProvider";
 import Resume from "./components/Resume";
 import Projects from "./Projects";
 import Contact from "./Contact";
+import CloneAI from "./components/CloneAI";
 
 function App() {
    const [activeSidebar, setActiveSidebar] = useState(false);
@@ -72,6 +73,15 @@ function App() {
                   element={
                      <div className="flex flex-col items-center sm:ml-44 lg:ml-64 p-8 mx-auto w-full">
                         <Resume />
+                     </div>
+                  }
+               />
+
+               <Route
+                  path="/clone-chat"
+                  element={
+                     <div className="flex flex-col items-center sm:ml-44 lg:ml-64 p-8 mx-auto w-full">
+                        <CloneAI />
                      </div>
                   }
                />
