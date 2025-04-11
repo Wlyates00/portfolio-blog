@@ -53,7 +53,7 @@ const CloneAI = () => {
                />
                <div>
                   <p>
-                     <b>Layton Yates</b>
+                     <b>AI Layton</b>
                   </p>
                   <p className="text-sm text-gray-600">
                      I'm an AI so I may take some time to spin up ⏰
@@ -97,7 +97,7 @@ const CloneAI = () => {
                />
                <button
                   onClick={handleSend}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:cursor-pointer transition-transform transform hover:scale-105"
                >
                   Send
                </button>

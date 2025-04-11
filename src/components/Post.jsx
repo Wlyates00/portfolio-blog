@@ -48,7 +48,7 @@ const Post = () => {
          <div className="flex flex-row items-center mt-2">
             <button
                onClick={handlePost}
-               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 z-0"
+               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer transition-transform transform hover:scale-105 z-0"
             >
                Post
             </button>
