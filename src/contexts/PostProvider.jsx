@@ -4,7 +4,9 @@ import {
    addDoc,
    query,
    orderBy,
-   onSnapshot,
+   startAfter,
+   limit,
+   getDocs
 } from "firebase/firestore";
 import { db, storage } from "../firebase/firebase"; // Import Firebase
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -30,21 +32,43 @@ const addMedia = async (media) => {
 export const PostProvider = ({ children }) => {
    const postsCollection = collection(db, "posts");
    const [posts, setPosts] = useState([]);
+   const [lastVisiblePost, setLastVisiblePost] = useState(null);
+   const [hasMorePosts, setHasMorePosts] = useState(true);
+   const page_size = 4;
    const { user, isLoading } = useAuth(); // Track the authenticated user
+
+   const fetchPosts = async () => {
+      if (!hasMorePosts) return;
+
+      let q = query(
+         postsCollection,
+         orderBy("createdAt", "desc"),
+         limit(page_size)
+      );
+
+      if (lastVisiblePost) {
+         q = query(
+            postsCollection,
+            orderBy("createdAt", "desc"),
+            startAfter(lastVisiblePost),
+            limit(page_size)
+         );
+      }
+
+      const snapshot = await getDocs(q);
+      const postData = snapshot.docs.map((doc) => ({
+         id: doc.id,
+         ...doc.data(),
+      }));
+
+      setPosts((prevPosts) => [...prevPosts, ...postData]);
+      setLastVisiblePost(snapshot.docs[snapshot.docs.length - 1]);
+      setHasMorePosts(snapshot.docs.length === page_size);
+   };
 
    // Fetch posts from Firestore
    useEffect(() => {
-      const q = query(postsCollection, orderBy("createdAt", "desc"));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-         // Keeping in sync with posts to database?
-         const postData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-         }));
-         setPosts(postData);
-      });
-
-      return () => unsubscribe();
+      fetchPosts();
    }, []);
 
    // Function to add a post (only your UID can post)
@@ -67,7 +91,7 @@ export const PostProvider = ({ children }) => {
    };
 
    return (
-      <PostContext.Provider value={{ posts, addPost }}>
+      <PostContext.Provider value={{ posts, addPost, fetchPosts, hasMorePosts }}>
          {children}
       </PostContext.Provider>
    );
