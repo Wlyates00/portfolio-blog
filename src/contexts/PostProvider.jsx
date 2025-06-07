@@ -34,11 +34,12 @@ export const PostProvider = ({ children }) => {
    const [posts, setPosts] = useState([]);
    const [lastVisiblePost, setLastVisiblePost] = useState(null);
    const [hasMorePosts, setHasMorePosts] = useState(true);
+   const [loading, setLoading] = useState(true);
    const page_size = 4;
    const { user, isLoading } = useAuth(); // Track the authenticated user
 
    const fetchPosts = async () => {
-      if (!hasMorePosts) return;
+      if (!hasMorePosts && loading) return;
 
       let q = query(
          postsCollection,
@@ -64,6 +65,7 @@ export const PostProvider = ({ children }) => {
       setPosts((prevPosts) => [...prevPosts, ...postData]);
       setLastVisiblePost(snapshot.docs[snapshot.docs.length - 1]);
       setHasMorePosts(snapshot.docs.length === page_size);
+      setLoading(false);
    };
 
    // Fetch posts from Firestore
@@ -91,7 +93,7 @@ export const PostProvider = ({ children }) => {
    };
 
    return (
-      <PostContext.Provider value={{ posts, addPost, fetchPosts, hasMorePosts }}>
+      <PostContext.Provider value={{ posts, addPost, fetchPosts, hasMorePosts, loading }}>
          {children}
       </PostContext.Provider>
    );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { usePosts } from "../contexts/PostProvider";
 
 const PostList = () => {
-   const { posts, fetchPosts, hasMorePosts } = usePosts(); // Access posts using the custom hook
+   const { posts, fetchPosts, hasMorePosts, loading } = usePosts(); // Access posts using the custom hook
 
    // Utility function to wrap URLs in <a> tags and preserve spaces
    const wrapLinksInText = (text) => {
@@ -57,9 +57,10 @@ const PostList = () => {
                            post.createdAt.seconds * 1000
                         ).toLocaleString()}
                      </p>
-                     <p className="mt-1" style={{ whiteSpace: "pre-line" }}>{wrapLinksInText(post.content)}</p>
+                    
                   </div>
                </div>
+                <p className="mt-1" style={{ whiteSpace: "pre-line" }}>{wrapLinksInText(post.content)}</p>
                {post.media && (
                   <div className="mt-2">
                      <img
@@ -71,7 +72,7 @@ const PostList = () => {
                )}
             </div>
          ))}
-         {hasMorePosts && <button onClick={fetchPosts}  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer transition-transform transform hover:scale-105 z-0 mt-2">Load More Posts</button>}
+         {hasMorePosts && !loading && <button onClick={fetchPosts}  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer transition-transform transform hover:scale-105 z-0 mt-2">Load More Posts</button>}
       </div>
    );
 };
